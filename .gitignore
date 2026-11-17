@@ -1,0 +1,16 @@
+# Respaldos y archivos temporales
+*.bak
+*.bak.*
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Secretos y credenciales (nunca subir)
+.env
+.env.*
+*.key
+*.pem
+*secret*
+*credential*
+*token*

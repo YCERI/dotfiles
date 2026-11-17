@@ -1,0 +1,23 @@
+MenuBar=Disabled
+
+[Desktop Entry]
+DefaultProfile=Default.profile
+
+[General]
+ConfigVersion=1
+
+[KFileDialog Settings]
+detailViewIconSize=22
+
+[MainWindow][Toolbar sessionToolbar]
+ToolButtonStyle=IconOnly
+
+[SplitView]
+SplitViewVisibility=AlwaysHideSplitHeader
+
+[Toolbar sessionToolbar]
+IconSize=16
+ToolButtonStyle=IconOnly
+
+[UiSettings]
+ColorScheme=
