@@ -10,7 +10,7 @@ reproducible.
 Desde el directorio donde tengas `setup.sh`:
 
 ```bash
-DOTFILES_REPO=<url-del-repo> ./setup.sh
+git clone https://github.com/YCERI/dotfiles.git ~/dotfiles && ~/dotfiles/setup.sh
 ```
 
 El script clona este repositorio en `~/dotfiles` (o hace `git pull` si ya
@@ -35,6 +35,7 @@ dotfiles/
 │       └── plasmarc
 ├── shell/
 │   └── .bashrc
+├── setup.sh
 ├── .gitignore
 └── README.md
 ```
