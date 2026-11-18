@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 # setup.sh — Fedora + KDE Plasma reproducible (SevenTech 2026)
 # Idempotente: se puede correr varias veces sin romper nada.
-# Uso: DOTFILES_REPO=https://github.com/YCERI/dotfiles.git ./setup.sh
+# Uso (rápido, por defecto): ./setup.sh
+# Uso (completo): FULL=1 ./setup.sh
+# Uso (otro repo de dotfiles): DOTFILES_REPO=https://github.com/YCERI/dotfiles.git FULL=1 ./setup.sh
 set -euo pipefail
 
+FULL="${FULL:-0}"
 DOTFILES_REPO="${DOTFILES_REPO:-https://github.com/YCERI/dotfiles.git}"
 DOTFILES_DIR="$HOME/dotfiles"
 
-DNF_PKGS=(git stow neovim tmux htop fastfetch ripgrep fd-find bat yakuake toolbox flatpak)
+DNF_PKGS_BASE=(git stow fastfetch htop yakuake)
+DNF_PKGS_FULL=(neovim tmux ripgrep fd-find bat toolbox)
 FLATPAKS=(com.github.tchx84.Flatseal org.telegram.desktop)
 STOW_PKGS=(kde shell)          # carpetas dentro del repo de dotfiles
 
@@ -29,11 +33,19 @@ if ! rpm -q rpmfusion-free-release >/dev/null 2>&1; then
 fi
 
 log "3/6 Paquetes (dnf)"
+DNF_PKGS=("${DNF_PKGS_BASE[@]}")
+if [ "$FULL" = "1" ]; then
+  DNF_PKGS+=("${DNF_PKGS_FULL[@]}")
+fi
 sudo dnf install -y "${DNF_PKGS[@]}"
 
 log "4/6 Apps (flatpak)"
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user -y --noninteractive flathub "${FLATPAKS[@]}"
+if [ "$FULL" != "1" ]; then
+  echo "Omitido (usa FULL=1 para instalar apps)"
+else
+  flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  flatpak install --user -y --noninteractive flathub "${FLATPAKS[@]}"
+fi
 
 log "5/6 Dotfiles"
 if [ -d "$DOTFILES_DIR/.git" ]; then

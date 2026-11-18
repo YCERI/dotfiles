@@ -7,10 +7,24 @@ reproducible.
 
 ## Uso
 
-Desde el directorio donde tengas `setup.sh`:
+Clona el repositorio y entra en él:
 
 ```bash
-git clone https://github.com/YCERI/dotfiles.git ~/dotfiles && ~/dotfiles/setup.sh
+git clone https://github.com/YCERI/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+```
+
+Modo rápido (por defecto): instala los paquetes base y omite las apps de
+Flatpak:
+
+```bash
+./setup.sh
+```
+
+Modo completo (`FULL=1`): agrega los paquetes extra y las apps de Flatpak:
+
+```bash
+FULL=1 ./setup.sh
 ```
 
 El script clona este repositorio en `~/dotfiles` (o hace `git pull` si ya
